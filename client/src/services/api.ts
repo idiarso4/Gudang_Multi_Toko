@@ -114,15 +114,27 @@ export const productsApi = {
 export const ordersApi = {
   getAll: (params?: any): Promise<AxiosResponse<any>> =>
     api.get('/orders', { params }),
-  
+
   getById: (id: string): Promise<AxiosResponse<any>> =>
     api.get(`/orders/${id}`),
-  
-  updateStatus: (id: string, status: string): Promise<AxiosResponse<any>> =>
-    api.patch(`/orders/${id}/status`, { status }),
-  
-  sync: (marketplaceAccountId: string): Promise<AxiosResponse<any>> =>
-    api.post(`/orders/sync/${marketplaceAccountId}`),
+
+  updateStatus: (id: string, status: string, reason?: string, updateMarketplace?: boolean): Promise<AxiosResponse<any>> =>
+    api.patch(`/orders/${id}/status`, { status, reason, updateMarketplace }),
+
+  assignOrder: (id: string, userId: string, reason?: string): Promise<AxiosResponse<any>> =>
+    api.patch(`/orders/${id}/assign`, { assignedUserId: userId, reason }),
+
+  addTag: (id: string, tag: string): Promise<AxiosResponse<any>> =>
+    api.post(`/orders/${id}/tags`, { tag }),
+
+  removeTag: (id: string, tagId: string): Promise<AxiosResponse<any>> =>
+    api.delete(`/orders/${id}/tags/${tagId}`),
+
+  sync: (marketplaceAccountId: string, options?: any): Promise<AxiosResponse<any>> =>
+    api.post(`/order-management/sync`, { marketplaceAccountId, ...options }),
+
+  getStats: (timeRange?: string): Promise<AxiosResponse<any>> =>
+    api.get('/order-management/stats', { params: { timeRange } }),
 }
 
 // Inventory API

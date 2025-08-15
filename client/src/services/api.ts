@@ -209,6 +209,27 @@ export const stockSyncApi = {
     api.get('/stock-sync/stats', { params: { timeRange } })
 }
 
+// Reports API
+export const reportsApi = {
+  getDashboard: (timeRange?: string): Promise<AxiosResponse<any>> =>
+    api.get('/reports/dashboard', { params: { timeRange } }),
+
+  getSalesReport: (params?: any): Promise<AxiosResponse<any>> =>
+    api.get('/reports/sales', { params }),
+
+  getProductPerformance: (params?: any): Promise<AxiosResponse<any>> =>
+    api.get('/reports/products', { params }),
+
+  getMarketplacePerformance: (params?: any): Promise<AxiosResponse<any>> =>
+    api.get('/reports/marketplaces', { params }),
+
+  getInventoryReport: (params?: any): Promise<AxiosResponse<any>> =>
+    api.get('/reports/inventory', { params }),
+
+  getFinancialReport: (params?: any): Promise<AxiosResponse<any>> =>
+    api.get('/reports/financial', { params })
+}
+
 // Sync API
 export const syncApi = {
   syncProducts: (data: any): Promise<AxiosResponse<any>> =>
